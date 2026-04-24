@@ -15,9 +15,9 @@ import { cart } from '../data/cart.js';
 import { products } from '../data/products.js';
 
 
-let productshtml='';
+let productshtml = '';
 products.forEach((product) => {
-    productshtml+=`
+  productshtml += `
      <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
@@ -30,14 +30,14 @@ products.forEach((product) => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars*10}.png">
+              src="images/ratings/rating-${product.rating.stars * 10}.png">
             <div class="product-rating-count link-primary">
               ${product.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-            $${(product.priceCents/100).toFixed(2)}
+            $${(product.priceCents / 100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
@@ -75,49 +75,53 @@ console.log("js run");
 // 3.put it on page-dom -make interactive
 // class prdts grid contains all prd details
 
-document.querySelector('.js-products-grid').innerHTML=productshtml;
+document.querySelector('.js-products-grid').innerHTML = productshtml;
 // now generated the html using js no need of that in hrml file deletete thus portion
 // benifit of adding html just by adding objects to array
-document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
-  button.addEventListener('click',()=>{
-    // how do we know which product to add?
-    // data attribute:is just another  html attribute allow us to attach any info to an elem
-    const productId=button.dataset.productId;
-    // dataset property gives all dataattributes attached to elem
-    // steps 1.check if product already in cart
-    let matchingItem;
-    cart.forEach((item)=>{
-      if(productId===item.productId){
-        matchingItem=item;
+function addtoCart(productId) {
+  // steps 1.check if product already in cart
+  let matchingItem;
+  cart.forEach((item) => {
+    if (productId === item.productId) {
+      matchingItem = item;
 
-      }
-
-    });
-    // 2.if it is in cart,increase the quantity
-    if(matchingItem){
-      matchingItem.quantity+=1;
     }
-    // 3.if not in cart,add to cart
-    else{
-    cart.push({
-      productId:productId,
-      quantity:1
-    });
-  }
-
-  let cartQuantity=0;
-
-  cart.forEach((item)=>{
-    cartQuantity+=item.quantity;
-
 
   });
+  // 2.if it is in cart,increase the quantity
+  if (matchingItem) {
+    matchingItem.quantity += 1;
+  }
+  // 3.if not in cart,add to cart
+  else {
+    cart.push({
+      productId: productId,
+      quantity: 1
+    });
+  }
+}
+document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+  button.addEventListener('click', () => {
+    // how do we know which product to add?
+    // data attribute:is just another  html attribute allow us to attach any info to an elem
+    const productId = button.dataset.productId;
+    // dataset property gives all dataattributes attached to elem
+    addtoCart(productId);
 
 
-  document.querySelector('.js-cart-quantity').innerHTML=cartQuantity;
-  // just to make sure
-  console.log(cartQuantity);
-  console.log(cart);
+    let cartQuantity = 0;
+
+    cart.forEach((item) => {
+      cartQuantity += item.quantity;
+
+
+    });
+
+
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    // just to make sure
+    console.log(cartQuantity);
+    console.log(cart);
 
   });
 
