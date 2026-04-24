@@ -1,4 +1,4 @@
-console.log("hello");
+// console.log("hello");
 // idea of js 1.save the data 2.generate html 3.make interactive
 
 
@@ -9,6 +9,10 @@ console.log("hello");
 // make sure all have same prop
 
 // 2.generate html
+// .. out of scripts folder
+import { cart as myCart } from '../data/cart.js';
+
+
 let productshtml='';
 products.forEach((product) => {
     productshtml+=`
