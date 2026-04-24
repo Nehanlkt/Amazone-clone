@@ -56,7 +56,8 @@ products.forEach((product) => {
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary js-add-to-cart"
+          data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>
@@ -65,12 +66,45 @@ products.forEach((product) => {
 });
 console.log("js run");
 
-// 3.put it on page-dom
+// 3.put it on page-dom -make interactive
 // class prdts grid contains all prd details
 
 document.querySelector('.js-products-grid').innerHTML=productshtml;
 // now generated the html using js no need of that in hrml file deletete thus portion
 // benifit of adding html just by adding objects to array
+document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
+  button.addEventListener('click',()=>{
+    // how do we know which product to add?
+    // data attribute:is just another  html attribute allow us to attach any info to an elem
+    const productId=button.dataset.productId;
+    // dataset property gives all dataattributes attached to elem
+    // steps 1.check if product already in cart
+    let matchingItem;
+    cart.forEach((item)=>{
+      if(productId===item.productId){
+        matchingItem=item;
+
+      }
+
+    });
+    // 2.if it is in cart,increase the quantity
+    if(matchingItem){
+      matchingItem.quantity+=1;
+    }
+    // 3.if not in cart,add to cart
+    else{
+    cart.push({
+      productId:productId,
+      quantity:1
+    });
+  }
+
+  });
+
+});
+
+
+
 
 
 
