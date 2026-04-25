@@ -10,9 +10,12 @@
 
 // 2.generate html
 // .. out of scripts folder
-import { cart } from '../data/cart.js';
+import { cart, addtoCart } from '../data/cart.js';
 
 import { products } from '../data/products.js';
+
+import { formatCurrency } from './utils/money.js';
+
 
 
 let productshtml = '';
@@ -37,7 +40,7 @@ products.forEach((product) => {
           </div>
 
           <div class="product-price">
-            $${(product.priceCents / 100).toFixed(2)}
+            $${formatCurrency(product.priceCents)}
           </div>
 
           <div class="product-quantity-container">
@@ -78,28 +81,22 @@ console.log("js run");
 document.querySelector('.js-products-grid').innerHTML = productshtml;
 // now generated the html using js no need of that in hrml file deletete thus portion
 // benifit of adding html just by adding objects to array
-function addtoCart(productId) {
-  // steps 1.check if product already in cart
-  let matchingItem;
-  cart.forEach((item) => {
-    if (productId === item.productId) {
-      matchingItem = item;
 
-    }
 
-  });
-  // 2.if it is in cart,increase the quantity
-  if (matchingItem) {
-    matchingItem.quantity += 1;
-  }
-  // 3.if not in cart,add to cart
-  else {
-    cart.push({
-      productId: productId,
-      quantity: 1
+function updatecartQuantity(){
+  let cartQuantity = 0;
+
+    cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity;
+
+
     });
-  }
+
+
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
 }
+
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
     // how do we know which product to add?
@@ -107,21 +104,10 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     const productId = button.dataset.productId;
     // dataset property gives all dataattributes attached to elem
     addtoCart(productId);
-
-
-    let cartQuantity = 0;
-
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-
-
-    });
-
-
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    updatecartQuantity();
     // just to make sure
-    console.log(cartQuantity);
-    console.log(cart);
+    // console.log(cartQuantity);
+    // console.log(cart);
 
   });
 
