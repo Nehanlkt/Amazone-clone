@@ -1,6 +1,6 @@
 
 // 1.save data
-export const cart=[{
+export let cart=[{
     productId:'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
     quantity:2,
     // this prdid alone will help to find image n name too cld as data normalsing
@@ -33,4 +33,18 @@ export function addtoCart(productId) {
       quantity: 1
     });
   }
+}
+
+export function removefromcart(productId){
+    const newCart=[];
+    cart.forEach((cartItem)=>{
+        if(cartItem.productId !== productId){
+            newCart.push(cartItem);
+        }
+
+    });
+
+
+    cart=newCart;
+
 }
