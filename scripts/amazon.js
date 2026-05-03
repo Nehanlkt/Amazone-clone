@@ -5,7 +5,7 @@
 // array of obj
 // calc in cents 1doolar=100cents
 // 1.save data
-// data script
+// data script 
 // make sure all have same prop
 
 // 2.generate html
