@@ -73,7 +73,10 @@ export function renderPaymentSummary() {
           </button>
           `;
 
-        //   3.making interactive
         document.querySelector('.js-payment-summary').innerHTML=paymentSummaryHtml;
+        // 3.make interactive
+        // order summary acc to cart items when deleted by mvc using renderpaymentsummary() called there
+        // order summary updation ac to cart by calling renderpaymentsummary() again there
+
 
 }
