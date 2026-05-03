@@ -11,6 +11,9 @@ const today = dayjs();
 const deliverydate = today.add(7, 'days');
 console.log(deliverydate.format('dddd, MMMM D'));
 
+// to update just by clicking creating n putting this fn in upadate
+function renderOrderSummary(){
+
 
 let cartsummaryHTML = '';
 
@@ -100,10 +103,10 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
         html += `
         <div class="delivery-option  js-delivery-option"
         data-product-id="${matchingProduct.id}"
-        data-delivery-option-id="${deliveryOption.id}>
+        data-delivery-option-id="${deliveryOption.id}">
                   <input type="radio"
                   ${isChecked ? 'checked' : ''} 
-                    class="delivery-option-i-+nput"
+                    class="delivery-option-input"
                     name="delivery-option-${matchingProduct.id}"
                     >
                   <div>
@@ -143,7 +146,13 @@ document.querySelectorAll('.js-delivery-option').forEach((element)=>{
   element.addEventListener('click',()=>{
     const {productId,deliveryOptionId}=element.dataset;
     updateDeliveryOption(productId,deliveryOptionId);
+    renderOrderSummary();
 
   })
 
 });
+}
+
+
+// first time(intial render)
+renderOrderSummary();
