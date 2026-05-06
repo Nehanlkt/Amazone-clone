@@ -1,7 +1,8 @@
 import { formatCurrency } from "../scripts/utils/money.js";
 
-
+console.log('test suite:formatcurrency');
 // 1.basic test case
+console.log('cents into dollars')
 // written in string bcz tofixed returns string
 if(formatCurrency(2095) ==='20.95'){
     console.log('pased');
@@ -9,7 +10,7 @@ if(formatCurrency(2095) ==='20.95'){
     console.log('failed');
 }
 
-
+console.log('works vt zeros');
 // 2.edge cases
 if(formatCurrency(0)==='0.00'){
     console.log('passed');
@@ -18,7 +19,7 @@ if(formatCurrency(0)==='0.00'){
     console.log('failed');
 }
 
-
+console.log('round upto nearest cents');
 // ans cant be like 20.005 so we round upto like this 1 cent 20.01
 if(formatCurrency(2000.5)==='20.01'){
     console.log('passed');
